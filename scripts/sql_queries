@@ -1,0 +1,94 @@
+create schema bronze;
+create schema silver;
+create schema gold;
+
+
+create table bronze.cst_info(
+cst_id int,
+cst_key VARCHAR(50),
+cst_first_name varchar(50),
+cst_last_name varchar(50),
+cst_marital_status varchar(50),
+cst_gndr varchar(50),
+cst_create_date date
+);
+bulk insert bronze.cst_info
+from 'D:\sql_project\datasets\datasets\source_crm\cust_info.csv'
+with(
+firstrow=2,
+FIELDTERMINATOR=',',
+TABLOCK
+);
+
+create table bronze.prd_info(
+prd_id int,
+prd_key nvarchar(50),
+prd_name nvarchar(50),
+prd_cost  int,
+prd_line nvarchar(50),
+prd_start_dt datetime,
+prd_end_dt datetime
+);
+bulk insert bronze.prd_info
+from 'D:\sql_project\datasets\datasets\source_crm\prd_info.csv'
+with(
+firstrow=2,
+FIELDTERMINATOR=',',
+TABLOCK
+);
+
+
+create table bronze.sales_details(
+sales_ord_num nvarchar(50),
+sales_pdt_key nvarchar(50),
+sales_cust_id int,
+sales_ord_dt int,
+sales_ship_dt int,
+sales_due_dt int,
+sales int,
+sales_quantity int,
+sales_price int
+)bulk insert bronze.sales_details
+from 'D:\sql_project\datasets\datasets\source_crm\sales_details.csv'
+with(
+firstrow=2,
+FIELDTERMINATOR=',',
+TABLOCK
+);
+create table bronze.erp_cust_az12(
+cid nvarchar(50),
+bdate date,
+gender nvarchar(50)
+);
+bulk insert bronze.erp_cust_az12
+from 'D:\sql_project\datasets\datasets\source_erp\CUST_AZ12.CSV'
+with(
+firstrow=2,
+FIELDTERMINATOR=',',
+TABLOCK
+);
+
+create table bronze.erp_LOC_a101(
+cid nvarchar(50),
+CNTRY nvarchar(50)
+);
+bulk insert bronze.erp_LOC_a101
+from 'D:\sql_project\datasets\datasets\source_erp\LOC_A101.CSV'
+with(
+firstrow=2,
+FIELDTERMINATOR=',',
+TABLOCK
+);
+create table bronze.erp_px_cat_glv12(
+id nvarchar(50),
+cat nvarchar(50),
+subcat nvarchar(50),
+maintenance nvarchar(50)
+);
+bulk insert bronze.erp_px_cat_glv12
+from 'D:\sql_project\datasets\datasets\source_erp\PX_CAT_G1V2.CSV'
+with(
+firstrow=2,
+FIELDTERMINATOR=',',
+TABLOCK
+);
